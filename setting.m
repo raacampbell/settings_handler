@@ -27,6 +27,13 @@ classdef setting
 				value=getStructData(obj.defaultSettings,obj.pathToVariable);
 			end
 
+			%If it's a cell array of length 1 then it's a numeric vector, so we convert it accordingly
+			if iscell(value)
+				if length(value)==1
+					value = str2num(value{1});
+				end
+			end
+
 			%generate error if we still have not found the variable.
 			if strcmp(value,obj.failureString);
 				pth = '';
