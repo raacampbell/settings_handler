@@ -51,7 +51,7 @@ classdef settings_handler
 
 			%read the yml file
 			Y=yaml.ReadYaml(settingsFname);
-			
+
 			if ~exist(Y.default,'file')
 				error('Can not find settings file %s\n', Y.default)
 			end
@@ -88,6 +88,8 @@ function [importedYML,T,currentBranchNode] = makeEmptyStructAndTree(importedYML,
 	%
 	% Produces a tree tree (T) replicating the structure of importedYML (a struct) and also returns
 	% a new version of importedYML where the values are replaced by an object of class setting.
+
+	verbose = 0; %switch to 1 to debug 
 	if nargin<2
 		f=fields(importedYML);
 		T = tree ;
@@ -96,13 +98,18 @@ function [importedYML,T,currentBranchNode] = makeEmptyStructAndTree(importedYML,
 
 
 	f=fields(importedYML);
-	%fprintf('\nlooping through %d fields in %s (#%d)\n', length(f), T.Node{currentBranchNode}, currentBranchNode)
+	if verbose
+		fprintf('\nlooping through %d fields in %s (#%d)\n',...
+		 length(f), T.Node{currentBranchNode}, currentBranchNode)
+	end
 
 	for ii=1:length(f)
 
 		%If we find a structure we will need to add a node
 		if isstruct(importedYML.(f{ii}))
-			%fprintf('\nBranching at %s', f{ii})
+			if verbose
+				fprintf('\nBranching at %s', f{ii})
+			end
 			[T,thisBranch] = T.addnode(currentBranchNode,f{ii});
 			[importedYML.(f{ii}),T,~] = makeEmptyStructAndTree(importedYML.(f{ii}),T,thisBranch);
 			continue
@@ -112,15 +119,5 @@ function [importedYML,T,currentBranchNode] = makeEmptyStructAndTree(importedYML,
 		[T,~] = T.addnode(currentBranchNode,f{ii});
 		importedYML.(f{ii})=[];
 	end
-end
-
-
-function p=getStructData(thisStruct,pth)
-
-	for ii=1:length(pth)
-		thisStruct=thisStruct.(pth{ii});
-	end
-
-	p=thisStruct;
 end
 
