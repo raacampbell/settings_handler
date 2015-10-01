@@ -70,6 +70,16 @@ classdef settings_handler
 			[obj.userSettings,obj.settingsTree] = obj.makeEmptyStructAndTree(obj.defaultSettings);
 
 		end %function settings_handler [constructor]
+
+		function out = subsref(obj,S)
+			%Overload subsref so we can return the class value in way that is transparent to the user
+			out = builtin('subsref',obj, S);
+			if strcmp(class(out),'setting')
+				out=out.getValue;
+			end
+		end %function subsref
+
+
 	end %methods
 
 	methods (Access='protected')
@@ -87,7 +97,6 @@ classdef settings_handler
 				T = tree ;
 				currentBranchNode = 1;
 			end
-
 
 			f=fields(importedYML);
 			if verbose
@@ -112,9 +121,7 @@ classdef settings_handler
 				end
 
 				[T,thisNode] = T.addnode(currentBranchNode,f{ii});
-
 				pth = T.Node(T.pathtoroot(thisNode));
-
 				importedYML.(f{ii})=setting(obj.files,pth,obj.defaultSettings);
 			end
 		end % function makeEmptyStructAndTree
