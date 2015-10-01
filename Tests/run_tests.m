@@ -6,11 +6,20 @@ function varargout = run_tests
 % No input arguments. Results printed to screen and optionally 
 % returned to the workspace. 
 
+
+testCase = settingsTest;
+results = run(testCase);
+out{1}=results;
+
+
 testCase = settingsHandlerTest;
 results = run(testCase);
-disp(results)
+out{2}=results;
 
-
+fprintf('\n------------------------  RESULTS  ------------------------\n')
+for ii=1:length(out)
+	disp(out{ii});
+end
 if nargout>0
-	varargout{1}=results;
+	varargout{1}=out;
 end
