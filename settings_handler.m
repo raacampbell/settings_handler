@@ -91,30 +91,34 @@ end
 
 
 
-function [out,T,currentBranchNode] = makeEmptyStructAndTree(out,T,currentBranchNode)
+function [importedYML,T,currentBranchNode] = makeEmptyStructAndTree(importedYML,T,currentBranchNode)
+	% makeEmptyStructAndTree
+	%
+	% Produces a tree tree (T) replicating the structure of importedYML (a struct) and also returns
+	% a new version of importedYML where the values are replaced by an object of class setting.
 	if nargin<2
-		f=fields(out);
+		f=fields(importedYML);
 		T = tree ;
 		currentBranchNode = 1;
 	end
 
 
-	f=fields(out);
+	f=fields(importedYML);
 	%fprintf('\nlooping through %d fields in %s (#%d)\n', length(f), T.Node{currentBranchNode}, currentBranchNode)
 
 	for ii=1:length(f)
 
 		%If we find a structure we will need to add a node
-		if isstruct(out.(f{ii}))
+		if isstruct(importedYML.(f{ii}))
 			%fprintf('\nBranching at %s', f{ii})
 			[T,thisBranch] = T.addnode(currentBranchNode,f{ii});
-			[out.(f{ii}),T,~] = makeEmptyStructAndTree(out.(f{ii}),T,thisBranch);
+			[importedYML.(f{ii}),T,~] = makeEmptyStructAndTree(importedYML.(f{ii}),T,thisBranch);
 			continue
 		end
 
 		%fprintf('Adding %s\n', f{ii})
 		[T,~] = T.addnode(currentBranchNode,f{ii});
-		out.(f{ii})=[];
+		importedYML.(f{ii})=[];
 	end
 end
 
