@@ -116,6 +116,19 @@ classdef settings_handler < dynamicprops
 
         end
 
+        function display(obj)
+        	%overload display so setting class is displayed as being the same class as the value it stores
+        	f=sort(fields(obj));
+        	m=max(cellfun(@length,f));
+        	for ii=1:length(f)
+				thisType = class(obj.(f{ii}));
+				if strcmp(thisType,'setting')
+					thisType = class(obj.(f{ii}).getValue);
+				end
+				s=size(thisType);
+				fprintf(['%',num2str(m+2),'s: [%dx%d %s]\n'],f{ii},s(1),s(2),thisType)        		
+        	end
+        end
 	end %methods
 
 	methods (Access='protected')
