@@ -1,4 +1,4 @@
-classdef settings_handler
+classdef settings_handler < dynamicprops
 % class settings_handler
 %
 % mySettings = settings_handler('mySettings.yml')
@@ -32,10 +32,10 @@ classdef settings_handler
 		files    %A structure containing the paths to the default settings file and the user settings file
 		defaultSettings
 		settingsTree
+		userSettings
 	end
 
 	properties(GetAccess='public', SetAccess='public')
-		userSettings
 		
 	end
 
@@ -67,7 +67,14 @@ classdef settings_handler
 			end
 
 			%Create the structure of objects that will store the data.
-			[obj.userSettings,obj.settingsTree] = obj.makeEmptyStructAndTree(obj.defaultSettings);
+			[userSettings,obj.settingsTree] = obj.makeEmptyStructAndTree(obj.defaultSettings);
+			f=fields(userSettings);
+			for ii=1:length(f)
+				addprop(obj,f{ii});
+				obj.(f{ii}) = userSettings.(f{ii});
+			end
+			obj.userSettings=userSettings;
+
 
 		end %function settings_handler [constructor]
 
