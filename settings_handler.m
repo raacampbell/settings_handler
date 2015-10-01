@@ -82,9 +82,19 @@ classdef settings_handler < dynamicprops
 		%Overload the reference and asignment operators
 		function out = subsref(obj,S)
 			%Overload subsref only if obj is an instance of class setting
-			out = builtin('subsref',obj, S);
+			ind=strmatch('.',{S.type});
+			out = builtin('subsref',obj, S(ind));
+			S(ind)=[];
+
 			if strcmp(class(out),'setting')
+
 				out=out.getValue;
+				if ~isempty(S)
+					for ii=1:length(S)
+						out=subsref(out,S(ii));
+					end
+				end
+
 			end
 		end %function subsref
 
