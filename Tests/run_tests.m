@@ -8,6 +8,7 @@ function varargout = run_tests
 
 testCase = settingsHandlerTest;
 results = run(testCase);
+disp(results)
 
 
 if nargout>0

@@ -1,2 +1,2 @@
-default: exampleDefaultSettings.yml
-user: ~/.exampleUserSettings.yml
+default: ./exampleDefaultSettings.yml
+user: ./exampleUserSettings.yml
