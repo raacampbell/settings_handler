@@ -58,7 +58,6 @@ classdef settings_handler
 			obj.files.defaultFile = Y.default;
 			obj.defaultSettings = yaml.ReadYaml(obj.files.defaultFile);
 
-
 			obj.files.userFile = Y.user;
 			if ~exist(obj.files.userFile)
 				%If the user settings file does not exist, we just copy the default settings to the desired location
@@ -71,14 +70,34 @@ classdef settings_handler
 
 		end %function settings_handler [constructor]
 
+
+		%Overload the reference and asignment operators
 		function out = subsref(obj,S)
-			%Overload subsref so we can return the class value in way that is transparent to the user
+			%Overload subsref only if obj is an instance of class setting
 			out = builtin('subsref',obj, S);
 			if strcmp(class(out),'setting')
 				out=out.getValue;
 			end
 		end %function subsref
 
+	 	function out=subsasgn(obj,S,newValue)
+			%Overload subsref only if obj is an instance of class setting
+
+			thisObject=builtin('subsref',obj, S);
+			if ~strcmp(class(thisObject),'setting')
+				disp('Assinging ')
+		 		out = builtin('subsasgn',obj,S,newValue);
+		 		return
+		 	end
+
+
+		 	userSettings = yaml.ReadYaml(obj.files.userFile);
+		 	userSettings = subsasgn(userSettings,S(2:end),newValue);
+		 	yaml.WriteYaml(obj.files.userFile,userSettings);
+
+		 	out=obj;
+
+        end
 
 	end %methods
 
