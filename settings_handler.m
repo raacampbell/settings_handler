@@ -67,57 +67,60 @@ classdef settings_handler
 			end
 
 			%Create the structure of objects that will store the data.
-			[obj.userSettings,obj.settingsTree] = makeEmptyStructAndTree(obj.defaultSettings);
+			[obj.userSettings,obj.settingsTree] = obj.makeEmptyStructAndTree(obj.defaultSettings);
 
-		end 
+		end %function settings_handler [constructor]
+	end %methods
 
+	methods (Access='protected')
 
+		function [importedYML,T,currentBranchNode] = makeEmptyStructAndTree(obj,importedYML,T,currentBranchNode)
+			% makeEmptyStructAndTree
+			%
+			% Produces a tree tree (T) replicating the structure of importedYML (a struct) and also returns
+			% a new version of importedYML where the values are replaced by an object of class setting.
 
-	end
+			verbose = 0; %switch to 1 to debug 
 
-
-end
-
-
-
-
-
-
-function [importedYML,T,currentBranchNode] = makeEmptyStructAndTree(importedYML,T,currentBranchNode)
-	% makeEmptyStructAndTree
-	%
-	% Produces a tree tree (T) replicating the structure of importedYML (a struct) and also returns
-	% a new version of importedYML where the values are replaced by an object of class setting.
-
-	verbose = 0; %switch to 1 to debug 
-	if nargin<2
-		f=fields(importedYML);
-		T = tree ;
-		currentBranchNode = 1;
-	end
-
-
-	f=fields(importedYML);
-	if verbose
-		fprintf('\nlooping through %d fields in %s (#%d)\n',...
-		 length(f), T.Node{currentBranchNode}, currentBranchNode)
-	end
-
-	for ii=1:length(f)
-
-		%If we find a structure we will need to add a node
-		if isstruct(importedYML.(f{ii}))
-			if verbose
-				fprintf('\nBranching at %s', f{ii})
+			if nargin<3
+				f=fields(importedYML);
+				T = tree ;
+				currentBranchNode = 1;
 			end
-			[T,thisBranch] = T.addnode(currentBranchNode,f{ii});
-			[importedYML.(f{ii}),T,~] = makeEmptyStructAndTree(importedYML.(f{ii}),T,thisBranch);
-			continue
-		end
 
-		%fprintf('Adding %s\n', f{ii})
-		[T,~] = T.addnode(currentBranchNode,f{ii});
-		importedYML.(f{ii})=[];
-	end
-end
 
+			f=fields(importedYML);
+			if verbose
+				fprintf('\nlooping through %d fields in %s (#%d)\n',...
+				length(f), T.Node{currentBranchNode}, currentBranchNode)
+			end
+
+			for ii=1:length(f)
+
+				%If we find a structure we will need to add a node
+				if isstruct(importedYML.(f{ii}))
+					if verbose
+						fprintf('\nBranching at %s', f{ii})
+					end
+					[T,thisBranch] = T.addnode(currentBranchNode,f{ii});
+					[importedYML.(f{ii}),T,~] = obj.makeEmptyStructAndTree(importedYML.(f{ii}),T,thisBranch);
+					continue
+				end
+
+				if verbose
+					fprintf('Adding %s\n', f{ii})
+				end
+
+				[T,thisNode] = T.addnode(currentBranchNode,f{ii});
+
+				pth = T.Node(T.pathtoroot(thisNode));
+
+				importedYML.(f{ii})=setting(obj.files,pth,obj.defaultSettings);
+			end
+		end % function makeEmptyStructAndTree
+
+
+	end %protected methods
+
+
+end %classdef settings_handler
