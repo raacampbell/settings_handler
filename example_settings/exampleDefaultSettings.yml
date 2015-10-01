@@ -9,7 +9,7 @@ fontB:
     size: 15
 
 defaultApronDimensions: [1 1 5]
-
+flowers: [tulips,toads,roses]
 
 navigation:
     pandaIncrement: [10 120]

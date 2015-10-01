@@ -118,17 +118,23 @@ classdef settings_handler < dynamicprops
 
         function display(obj)
         	%overload display so setting class is displayed as being the same class as the value it stores
+        	%TODO: doesn't work on child setting instances that are attached a structure and not to the settings_handler object
         	f=sort(fields(obj));
         	m=max(cellfun(@length,f));
+        	out='';
         	for ii=1:length(f)
-				thisType = class(obj.(f{ii}));
+				val=obj.(f{ii});
+				thisType = class(val);
 				if strcmp(thisType,'setting')
-					thisType = class(obj.(f{ii}).getValue);
+					val=obj.(f{ii}).getValue;
+					thisType = class(val);
 				end
-				s=size(thisType);
-				fprintf(['%',num2str(m+2),'s: [%dx%d %s]\n'],f{ii},s(1),s(2),thisType)        		
+				s=size(val);
+				out=[out,sprintf(['%',num2str(m+2),'s: [%dx%d %s]\n'],f{ii},s(1),s(2),thisType)];
         	end
-        end
+        	fprintf(out)
+
+        end %display
 	end %methods
 
 	methods (Access='protected')
