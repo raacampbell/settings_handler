@@ -25,17 +25,18 @@ classdef settings_handler
 
 
 	properties(GetAccess='public', SetAccess='protected')
-		files    %A structure containing the paths to the default settings file and the user settings file
-		defaultSettings
+
 	end
 
-	properties(GetAccess='public', SetAccess='protected')
-
+	properties(GetAccess='protected', SetAccess='protected')
+		files    %A structure containing the paths to the default settings file and the user settings file
+		defaultSettings
+		settingsTree
 	end
 
 	properties(GetAccess='public', SetAccess='public')
 		userSettings
-		settingsTree
+		
 	end
 
 
@@ -89,7 +90,6 @@ classdef settings_handler
 		 		out = builtin('subsasgn',obj,S,newValue);
 		 		return
 		 	end
-
 
 		 	userSettings = yaml.ReadYaml(obj.files.userFile);
 		 	userSettings = subsasgn(userSettings,S(2:end),newValue);
