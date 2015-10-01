@@ -1,0 +1,37 @@
+defaultDirectory: /path/to/stufff
+
+fontA:
+    name: Helvetica
+    size: 10
+
+fontB:
+    name: Times
+    size: 15
+
+defaultApronDimensions: [1 1 5]
+
+
+navigation:
+    pandaIncrement: [10 120]
+    zoomRate: 1.5
+    panModeInvert: 0
+    keyboardUpdatePeriod: 0.02
+
+
+viewInfoPlanetPanel:
+    fileOnMarsTextColor: [0.8 0.24 0]
+    fileOnVenusTextColor: [0 0.8 0.32]
+
+
+debug:
+    logging: 1
+    verbose: 0
+
+elephantMonitor:
+    figurePosition: [2155 360 403 561]
+    minimumSize: 1
+    elephantLocation:
+        xy: 5
+        z: 5
+    maximumSize: 500
+    importExportDefault: /path/to/elephant/park
