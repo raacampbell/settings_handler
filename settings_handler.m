@@ -1,7 +1,7 @@
-classdef settings 
-% settings class
+classdef settings_handler
+% class settings_handler
 %
-% mySettings = settings('mySettings.yml')
+% mySettings = settings_handler('mySettings.yml')
 % 
 % settingsFile is a yaml file that contains the location
 % of the default settings file and the user-settings file. 
@@ -25,9 +25,8 @@ classdef settings
 
 
 	properties(GetAccess='public', SetAccess='protected')
-		defaultFile
+		files    %A structure containing the paths to the default settings file and the user settings file
 		defaultSettings
-		userFile
 	end
 
 	properties(GetAccess='public', SetAccess='protected')
@@ -36,14 +35,15 @@ classdef settings
 
 	properties(GetAccess='public', SetAccess='public')
 		userSettings
-		paths
+		settingsTree
 	end
 
 
 	methods
-		function obj=settings(settingsFname)
+		function obj=settings_handler(settingsFname)
 			% constructor
 			% read default settings and set up user settings as needed
+
 
 			if ~exist(settingsFname,'file')
 				error('%s does not exits',settingsFname)
@@ -55,28 +55,20 @@ classdef settings
 			if ~exist(Y.default,'file')
 				error('Can not find settings file %s\n', Y.default)
 			end
-			obj.defaultFile = Y.default;
-			obj.defaultSettings = yaml.ReadYaml(obj.defaultFile);
+			obj.files.defaultFile = Y.default;
+			obj.defaultSettings = yaml.ReadYaml(obj.files.defaultFile);
 
 
-			obj.userFile = Y.user;
-			if ~exist(obj.userFile)
+			obj.files.userFile = Y.user;
+			if ~exist(obj.files.userFile)
 				%If the user settings file does not exist, we just copy the default settings to the desired location
-				fprintf('No user settings file found at %s. Creating default file using %s\n',obj.userFile,obj.defaultFile)
-				yaml.WriteYaml(obj.userFile,obj.defaultSettings);
+				fprintf('No user settings file found at %s. Creating default file using %s\n', obj.files.userFile, obj.files.defaultFile)
+				yaml.WriteYaml(obj.files.userFile, obj.defaultSettings);
 			end
 
-			%Set up the dynamic properties
-			[obj.paths,obj.userSettings] = makeEmptyStructAndTree(obj.defaultSettings);
-			L=obj.userSettings.findleaves
-			obj.userSettings.Node(L)
-			fprintf('%d leaves\n',length(L))
-			for ii=1:length(L)
-				fprintf('LEAF %d\n',L(ii))
-				R=obj.userSettings.pathtoroot(L(ii));
-				R(end)=[];
-				disp(obj.userSettings.Node(R)')
-			end
+			%Create the structure of objects that will store the data.
+			[obj.userSettings,obj.settingsTree] = makeEmptyStructAndTree(obj.defaultSettings);
+
 		end 
 
 
