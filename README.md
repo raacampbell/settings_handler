@@ -75,3 +75,62 @@ ans =
 
 wil
 ```
+
+We can read from the nested data "font":
+```MATLAB
+>> S.font
+
+ans = 
+
+    name: [1x1 setting]
+    size: [1x1 setting]
+%Note the above reported type (setting) will be fixed soon. This is a minor bug
+
+>> S.font.name
+
+ans =
+
+Helvetica
+
+>> S.font.size
+
+ans =
+
+    10
+```
+
+We can also *modify* values. e.g.
+```MATLAB
+>> S.numberOfFerrets
+
+ans =
+
+    15
+
+>> S.numberOfFerrets=99;
+>> S.numberOfFerrets
+
+ans =
+
+    99
+
+>> clear S
+>> S
+Undefined function or variable 'S'.
+ 
+>> S=settings_handler('exampleSettingsFile.yml')
+  elephantMonitor: [1x1 struct]
+      ferretNames: [1x3 cell]
+    ferretsPerBox: [1x3 double]
+             font: [1x1 struct]
+  numberOfFerrets: [1x1 double]
+  pathToSomething: [1x15 char]
+>> S.numberOfFerrets
+
+ans =
+
+    99
+
+```
+
+If you look in the files, you will see that ```defaultSettings.yml``` still says "15"  whereas ```userSettings.yml``` says "99".
