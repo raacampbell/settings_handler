@@ -76,6 +76,9 @@ classdef settings_handler < dynamicprops
 			obj.userSettings=userSettings;
 
 
+			%TODO: remove stuff from user settings that is not in default settings
+			
+
 		end %function settings_handler [constructor]
 
 
