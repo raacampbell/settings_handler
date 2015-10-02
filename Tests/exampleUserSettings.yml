@@ -1,19 +1,13 @@
 defaultDirectory: /path/to/stufff
-fontA: {name: Helvetica, size: 10.0}
-fontB: {name: Times, size: 15.0}
-defaultApronDimensions: [1 1 5]
-navigation:
-  pandaIncrement: [10 120]
-  zoomRate: 1.5
-  panModeInvert: 0.0
-  keyboardUpdatePeriod: 0.02
-viewInfoPlanetPanel:
-  fileOnMarsTextColor: [0.8 0.24 0]
-  fileOnVenusTextColor: [0 0.8 0.32]
-debug: {logging: 1.0, verbose: 0.0}
+font: {name: Helvetica, size: 10.0}
+aNumber: 789.0
+someNumbersNoCommas: [11 22 95]
+aString: hello
+someStrings: [hello, goodbye, help]
+planetColors: {mars: red, venus: white}
 elephantMonitor:
-  figurePosition: [2155 360 403 561]
-  minimumSize: 1.0
-  elephantLocation: {xy: 5.0, z: 5.0}
+  trunkPosition: [10 20 30]
+  trunkSize: 32.0
+  elephantLocation: {xy: 5.0, z: 1.0}
   maximumSize: 500.0
-  importExportDefault: /path/to/elephant/park
+  whereIsElephant: /path/to/elephant/park

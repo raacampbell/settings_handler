@@ -44,8 +44,6 @@ classdef setting
 				error('Can not find %s in user settings or default settings\n',pth)
 			end
 
-
-
 		end
 
 	end %methods

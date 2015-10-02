@@ -16,7 +16,7 @@ classdef settingsTest < matlab.unittest.TestCase
 			F.defaultFile=Y.default;
 			F.userFile=Y.user;
 
-			pth={'size';'fontA';[]}; %This is how the path is returned from the tree 
+			pth={'size';'font';[]}; %This is how the path is returned from the tree 
 			S=setting(F,pth,D);
 
 
