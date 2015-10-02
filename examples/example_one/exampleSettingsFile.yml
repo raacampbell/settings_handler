@@ -1,0 +1,2 @@
+default: defaultSettings.yml
+user: userSettings.yml

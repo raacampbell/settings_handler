@@ -16,3 +16,9 @@ The following are then possible:
 4. If a setting exists in the default settings file and not the user file, the value in the default file 
 is automatically read. If this value is modified, the modified value is writen to the user settings file. 
 
+
+# Example session
+
+```
+cd examples/example_one
+```
