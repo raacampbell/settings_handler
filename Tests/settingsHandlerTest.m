@@ -90,6 +90,37 @@ classdef settingsHandlerTest < matlab.unittest.TestCase
 		end
 
 
+		%------------------------------------------------------------------
+		% Write tests
+		%Confirm that we can write the different classes of value and re-read them
+		%correctly.
+		function testWriteANumber(testCase)
+			S = settings_handler(testCase.exampleSettingsFile);
+			N = 123;
+			S.aNumber = N;
+			testCase.verifyEqual(S.aNumber,N)
+		end
+
+		function testWriteAString(testCase)
+			S = settings_handler(testCase.exampleSettingsFile);
+			N = 'goodbye';
+			S.aString = N;
+			testCase.verifyEqual(S.aString,N)
+		end
+
+		function testWriteSomeNumbersNoCommas(testCase)
+			S = settings_handler(testCase.exampleSettingsFile);
+			N = [98, 76, 54];
+			S.someNumbersNoCommas = N;
+			testCase.verifyEqual(S.someNumbersNoCommas,N)
+		end
+
+		function testWriteSomeStrings(testCase)
+			S = settings_handler(testCase.exampleSettingsFile);
+			N = {'I','Need','Somebody'};
+			S.someStrings = N;
+			testCase.verifyEqual(S.someStrings,N)
+		end
 
 
 
