@@ -63,8 +63,8 @@ classdef settingsHandlerTest < matlab.unittest.TestCase
 
 		function testReadPlanetColors(testCase)
 			S = settings_handler(testCase.exampleSettingsFile);
-			result(1) = strcmp(S.planetColors.mars,'red');
-			result(2) = strcmp(S.planetColors.venus,'white');
+			result  = [strcmp(S.planetColors.mars,'red'),...
+						strcmp(S.planetColors.venus,'white')];
 			testCase.verifyTrue(all(result))
 		end
 

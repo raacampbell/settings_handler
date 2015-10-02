@@ -1,28 +1,34 @@
 classdef settings_handler < dynamicprops
-% class settings_handler
+% settings_handler - transparent YML settings file read/writer
 %
+% class settings_handler(settingsFname)
+%
+%
+% Purpose
+% settings_handler is a class for handling persistant user settings in a way
+% that is transparent to the user. settings_handler reads a YAML file that 
+% defines the location of a default settings file and a user settings file 
+% where modification can be made. 
+%
+% settings_handler creates what outwardly looks like a structure (settings 
+% may be nested in a tree-like fashion) containing the user settings from the 
+% YML file. In reality, each value in the structure is an object that handles 
+% reading and writing to the YML file on disk. The following are then possible:
+% 1. Each time a value is accessed, it is read from disk.
+% 2. If a value is re-assigned, it is immediately written to disk.
+% 3. If the user-specific settings file does not exist, it is automatically 
+%    created from the default file.
+% 4. If a setting exists in the default settings file and not the user file, 
+%    the value in the default file is automatically read. If this value is 
+%    modified, the modified value is written to the user settings file.
+%
+%
+% Example
 % mySettings = settings_handler('mySettings.yml')
-% 
-% settingsFile is a yaml file that contains the location
-% of the default settings file and the user-settings file. 
+% see also: ./examples/example_one
 %
-% default: exampleDefaultSettings.yml
-% user: ~/exampleUserSettings.yml
-
-% The default settings file must contain all the relevant
-% setting parameters and values for them. The user file
-% does not have to exist or may be partially defined. 
 %
-% If the user requests a setting that exists only in the
-% default settings file, then it is read from that file and
-% then written to the user file. 
-%
-% If a setting is changed, the new value is written to the 
-% user file. 
-%
-% Each time a setting is requested, the user file is re-read.
-% ADD OPTION TO SUPRESS THIS.
-
+% Rob Campbell - Basel 2015
 
 	properties(GetAccess='public', SetAccess='protected')
 
@@ -77,7 +83,7 @@ classdef settings_handler < dynamicprops
 
 
 			%TODO: remove stuff from user settings that is not in default settings
-			
+
 
 		end %function settings_handler [constructor]
 
