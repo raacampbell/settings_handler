@@ -1,7 +1,7 @@
 pathToSomething: /path/to/stufff
 numberOfFerrets: 15
 ferretsPerBox: [8,10,5]
-ferretNames:[albert,william,richard]
+ferretNames: [albert,william,richard]
 font:
     name: Helvetica
     size: 10
