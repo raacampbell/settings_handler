@@ -12,9 +12,9 @@ The following are then possible:
 
 1. Each time a value is accessed, it is read from disk.
 2. If a value is re-assigned, it is immediately written to disk. 
-3. If the user-specific settings file does not exist, it is automatically created from the default file. 
+3. If the user-specific settings file does not exist, it is automatically created from the default file. This is useful if you are distributing software to users and want to add new features. 
 4. If a setting exists in the default settings file and not the user file, the value in the default file 
-is automatically read. If this value is modified, the modified value is writen to the user settings file. 
+is automatically read. If this value is modified, the modified value is written to the user settings file. 
 
 
 # Example session
@@ -139,4 +139,4 @@ If you look in the files, you will see that ```defaultSettings.yml``` still says
 
 - If you want to make a hidden settings file in the user home directory then try ```user: ~/.userSettings.yml```. MATLAB is clever and expands the ```~``` correctly on Windows. 
 
-- If you want to make a temporary settings file then try ```user: /tmp/userSettings.yml```. MATLAB is clever should translate the ```/tmp/``` to some sensible temporary directory on Windows. 
+- If you want to make a temporary settings file then try ```user: /tmp/userSettings.yml```. MATLAB is clever should translate the ```/tmp/``` to some sensible temporary directory on Windows.
