@@ -82,12 +82,19 @@ classdef settings_handler < dynamicprops
 		%Overload the reference and asignment operators
 		function out = subsref(obj,S)
 			%Overload subsref only if obj is an instance of class setting
+
+			if strcmp(S(1).subs,'settingsTree')
+				out = builtin('subsref',obj, S);
+				return
+			end
+
+
 			ind=strmatch('.',{S.type});
 			out = builtin('subsref',obj, S(ind));
 			S(ind)=[];
 
 			if strcmp(class(out),'setting')
-
+				%Indexes the value if the user attempted to do this
 				out=out.getValue;
 				if ~isempty(S)
 					for ii=1:length(S)
@@ -110,7 +117,8 @@ classdef settings_handler < dynamicprops
 		 	end
 
 		 	userSettings = yaml.ReadYaml(obj.files.userFile);
-		 	userSettings = subsasgn(userSettings,S(2:end),newValue);
+
+		 	userSettings = subsasgn(userSettings,S,newValue);
 
 		 	yaml.WriteYaml(obj.files.userFile,userSettings);
 
