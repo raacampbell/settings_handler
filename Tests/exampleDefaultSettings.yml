@@ -6,6 +6,7 @@ font:
 
 aNumber: 789
 someNumbersNoCommas: [11 22 95]
+someNumbersWithCommas: [11,22,95]
 
 aString: hello
 someStrings: [hello,goodbye,help]

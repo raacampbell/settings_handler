@@ -19,14 +19,17 @@ classdef settingsHandlerTest < matlab.unittest.TestCase
 		end % function testDefaultSettingsFileCreation
 		
 		function testNumLeaves(testCase)
-			%The example .yml has 20 settings in it, so there should be 20 leaves on the tree.
-			expLeaves = 15; 
+			%The example .yml has 16 settings in it, so there should be 16 leaves on the tree.
+			expLeaves = 16; 
 			S = settings_handler(testCase.exampleSettingsFile);
 			actLeaves = length(S.settingsTree.findleaves);
  			testCase.verifyEqual(actLeaves,expLeaves);
 		end % function testNumLeaves
 
 
+
+		%------------------------------------------------------------------
+		% read tests
 		%Confirm that the values of everything is read as expected
 		%so the hard-coded values below must match what is in the 
 		%YML file.
@@ -43,6 +46,11 @@ classdef settingsHandlerTest < matlab.unittest.TestCase
 		function testReadSomeNumbersNoCommas(testCase)
 			S = settings_handler(testCase.exampleSettingsFile);
 			testCase.verifyEqual(S.someNumbersNoCommas,[11,22,95])
+		end
+
+		function testReadSomeNumbersWithCommas(testCase)
+			S = settings_handler(testCase.exampleSettingsFile);
+			testCase.verifyEqual(S.someNumbersWithCommas,[11,22,95])
 		end
 
 		function testReadSomeStrings(testCase)

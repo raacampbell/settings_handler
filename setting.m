@@ -27,10 +27,16 @@ classdef setting
 				value=getStructData(obj.defaultSettings,obj.pathToVariable);
 			end
 
-			%If it's a cell array of length 1 then it's a numeric vector, so we convert it accordingly
+			%Handle cell arrays correctly to produce a vector if this is possible
 			if iscell(value)
+				%If it's a cell array of length 1 then it's definitely a numeric vector, so we convert it accordingly
 				if length(value)==1
 					value = str2num(value{1});
+					return
+				end
+				if all(cellfun(@isnumeric,value))
+					value = [value{:}];
+					return
 				end
 			end
 
