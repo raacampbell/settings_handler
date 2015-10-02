@@ -19,6 +19,59 @@ is automatically read. If this value is modified, the modified value is writen t
 
 # Example session
 
+```MATLAB
+%change to directory containing the example YML files
+>> cd examples/example_one 
+
+%Directory contains these two files.
+>> ls
+defaultSettings.yml  exampleSettingsFile.yml
+
 ```
-cd examples/example_one
+The file ```defaultSettings.yml``` contains the settings data only and the file ```exampleSettingsFile.yml``` contains the location of the default settings file and the location where we will keep the user settings. So it simply contains the following two lines:
+
+```ini
+default: defaultSettings.yml
+user: userSettings.yml
+```
+
+We create an instance of the settings_handler object as follows:
+```MATLAB
+>> S=settings_handler('exampleSettingsFile.yml')
+No user settings file found at userSettings.yml. Creating default file using defaultSettings.yml
+  elephantMonitor: [1x1 struct]
+      ferretNames: [1x3 cell]
+    ferretsPerBox: [1x3 double]
+             font: [1x1 struct]
+  numberOfFerrets: [1x1 double]
+  pathToSomething: [1x15 char]
+
+```
+The instance, S, is created and reports back that that userSettings.yml file has been created. We verify this:
+
+```
+>> ls
+defaultSettings.yml  exampleSettingsFile.yml  userSettings.yml
+```
+
+We can now read settings. For example, we can read from the cell array of strings and also index as norma:
+```MATLAB
+
+>> S.ferretNames
+
+ans = 
+
+    'albert'    'william'    'richard'
+
+>> S.ferretNames{2}
+
+ans =
+
+william
+
+>> S.ferretNames{2}(1:3)
+
+ans =
+
+wil
 ```
