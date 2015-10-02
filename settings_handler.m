@@ -98,6 +98,7 @@ classdef settings_handler < dynamicprops
 			end
 		end %function subsref
 
+
 	 	function out=subsasgn(obj,S,newValue)
 			%Overload subsref only if obj is an instance of class setting
 
@@ -110,6 +111,7 @@ classdef settings_handler < dynamicprops
 
 		 	userSettings = yaml.ReadYaml(obj.files.userFile);
 		 	userSettings = subsasgn(userSettings,S(2:end),newValue);
+
 		 	yaml.WriteYaml(obj.files.userFile,userSettings);
 
 		 	out=obj;
