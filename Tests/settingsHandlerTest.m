@@ -3,6 +3,9 @@ classdef settingsHandlerTest < matlab.unittest.TestCase
 	properties
 		exampleSettingsFile = './exampleSettingsFile.yml';
 		userSettingsFile = './exampleUserSettings.yml';
+
+		exampleSettingsFile_missing = './exampleSettingsFile_missingUserSetting.yml';
+		userSettingsFile_missing = './exampleUserSettings_missing.yml';
 	end %properties
 
 	%Open test method block
@@ -120,6 +123,19 @@ classdef settingsHandlerTest < matlab.unittest.TestCase
 			N = {'I','Need','Somebody'};
 			S.someStrings = N;
 			testCase.verifyEqual(S.someStrings,N)
+		end
+
+
+		%------------------------------------------------------------------
+		% Check that we fill in missing settings from disk
+		function testReadMissingNumber(testCase)
+			%First confirm that the setting really not there
+			Y=yaml.ReadYaml('exampleUserSettings_missing.yml');
+			testCase.verifyTrue(isempty(strmatch('aNumber',fieldnames(Y))))
+
+			%Now check that we have read it in
+			S=settings_handler('./exampleSettingsFile_missingUserSetting.yml');
+			testCase.verifyTrue(~isempty(strmatch('aNumber',fieldnames(S))))
 		end
 
 
