@@ -3,7 +3,7 @@
 settings_handler defines a class for handling user settings for code projects in a transparent way. 
 
 # What does it do?
-settings_handler reads a YAML file that defines the location of a default settings file and a 
+settings_handler reads a YAML file that defines the location of a default settings file and
 a user settings file that may be modified. From this, settings_handler creates what outwardly
 looks like a structure (settings may be nested in a tree-like fashion) containing the user settings from the YML
 file. In reality, each value in the structure is an object that handles reading and writing to the YML file on disk. 
