@@ -54,7 +54,7 @@ The instance, S, is created and reports back that that userSettings.yml file has
 defaultSettings.yml  exampleSettingsFile.yml  userSettings.yml
 ```
 
-We can now read settings. For example, we can read from the cell array of strings and also index as norma:
+We can now read settings. For example, we can read from the cell array of strings and also index as normal:
 ```MATLAB
 
 >> S.ferretNames
