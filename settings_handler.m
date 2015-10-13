@@ -102,7 +102,7 @@ classdef settings_handler < dynamicprops
 			out = builtin('subsref',obj, S(ind));
 			S(ind)=[];
 
-			if strcmp(class(out),'setting')
+			if isa(out,'setting')
 				%Indexes the value if the user attempted to do this
 				out=out.getValue;
 				if ~isempty(S)
@@ -119,8 +119,7 @@ classdef settings_handler < dynamicprops
 			%Overload subsref only if obj is an instance of class setting
 
 			thisObject=builtin('subsref',obj, S);
-			if ~strcmp(class(thisObject),'setting')
-				disp('Assinging ')
+			if ~isa(thisObject,'setting')
 		 		out = builtin('subsasgn',obj,S,newValue);
 		 		return
 		 	end
@@ -143,13 +142,11 @@ classdef settings_handler < dynamicprops
         	out='';
         	for ii=1:length(f)
 				val=obj.(f{ii});
-				thisType = class(val);
-				if strcmp(thisType,'setting')
+				if isa(val,'setting')
 					val=obj.(f{ii}).getValue;
-					thisType = class(val);
 				end
 				s=size(val);
-				out=[out,sprintf(['%',num2str(m+2),'s: [%dx%d %s]\n'],f{ii},s(1),s(2),thisType)];
+				out=[out,sprintf(['%',num2str(m+2),'s: [%dx%d %s]\n'],f{ii},s(1),s(2),class(thisType))];
         	end
         	fprintf(out)
 
