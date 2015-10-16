@@ -146,7 +146,7 @@ classdef settings_handler < dynamicprops
 					val=obj.(f{ii}).getValue;
 				end
 				s=size(val);
-				out=[out,sprintf(['%',num2str(m+2),'s: [%dx%d %s]\n'],f{ii},s(1),s(2),class(thisType))];
+				out=[out,sprintf(['%',num2str(m+2),'s: [%dx%d %s]\n'],f{ii},s(1),s(2),class(val))];
         	end
         	fprintf(out)
 
