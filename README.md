@@ -139,7 +139,7 @@ If you look in the files, you will see that ```defaultSettings.yml``` still says
 
 - If you want to make a hidden settings file in the user home directory then try ```user: ~/.userSettings.yml``` (on Mac and Linux). 
 
-- If you want to make a temporary settings file then try ```user: /tmp/userSettings.yml```. MATLAB is clever should translate the ```/tmp/``` to some sensible temporary directory on Windows.
+- WINDOWS INFO TO COME
 
 ### Dependencies
 
