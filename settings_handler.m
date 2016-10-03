@@ -66,6 +66,11 @@ classdef settings_handler < dynamicprops
 			obj.defaultSettings = yaml.ReadYaml(obj.files.defaultFile);
 
 			obj.files.userFile = Y.user;
+			if ispc && strcmp(obj.files.userFile(1),'~')
+				obj.files.userFile(1)=[];
+				obj.files.userFile = fullfile(obj.files.userFile,obj.files.userFile);
+			end
+
 			if ~exist(obj.files.userFile)
 				%If the user settings file does not exist, we just copy the default settings to the desired location
 				fprintf('No user settings file found at %s. Creating default file using %s\n', obj.files.userFile, obj.files.defaultFile)
