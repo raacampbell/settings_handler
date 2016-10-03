@@ -68,7 +68,7 @@ classdef settings_handler < dynamicprops
 			obj.files.userFile = Y.user;
 			if ispc && strcmp(obj.files.userFile(1),'~')
 				obj.files.userFile(1)=[];
-				obj.files.userFile = fullfile(obj.files.userFile,obj.files.userFile);
+				obj.files.userFile = fullfile(getenv('HOMEDRIVE'),getenv('HOMEPATH'),obj.files.userFile);
 			end
 
 			if ~exist(obj.files.userFile)

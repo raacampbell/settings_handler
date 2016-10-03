@@ -137,6 +137,10 @@ If you look in the files, you will see that ```defaultSettings.yml``` still says
 
 # Location of the user settings YML
 
-- If you want to make a hidden settings file in the user home directory then try ```user: ~/.userSettings.yml```. MATLAB is clever and expands the ```~``` correctly on Windows. 
+- If you want to make a hidden settings file in the user home directory then try ```user: ~/.userSettings.yml```. settings_handler will expand the ```~``` correctly on Windows. 
 
-- If you want to make a temporary settings file then try ```user: /tmp/userSettings.yml```. MATLAB is clever should translate the ```/tmp/``` to some sensible temporary directory on Windows.
+- If you want to make a temporary settings file then try ```user: /tmp/userSettings.yml```. May not work on Windows.
+
+
+# Dependencies
+(YAML MATLAB)[https://github.com/raacampbell/yamlmatlab]

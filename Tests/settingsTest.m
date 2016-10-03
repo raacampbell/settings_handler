@@ -50,6 +50,7 @@ classdef settingsTest < matlab.unittest.TestCase
 
 		end % function getAllValues
 
+        
 	end %methods (Test)
 
 end %classdef settingsTest < matlab.unittest.TestCase

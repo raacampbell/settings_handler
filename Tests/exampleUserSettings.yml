@@ -4,7 +4,7 @@ aNumber: 123.0
 someNumbersNoCommas: [98.0, 76.0, 54.0]
 someNumbersWithCommas: [11.0, 22.0, 95.0]
 aString: goodbye
-someStrings: [I, Need, Somebody]
+someStrings: [Help!, I, Need, Somebody, not, just, anybody]
 planetColors: {mars: red, venus: white}
 elephantMonitor:
   trunkPosition: [10 20 30]
