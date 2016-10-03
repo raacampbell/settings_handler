@@ -1,0 +1,11 @@
+pathToSomething: /path/to/stufff
+numberOfFerrets: 99.0
+ferretsPerBox: [8.0, 10.0, 5.0]
+ferretNames: [albert, william, richard]
+font: {name: Helvetica, size: 10.0}
+elephantMonitor:
+  figurePosition: [2155 360 403 561]
+  minimumSize: 1.0
+  elephantLocation: {xy: 5.0, z: 5.0}
+  maximumSize: 500.0
+  importExportDefault: /path/to/elephant/park

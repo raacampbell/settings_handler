@@ -1,0 +1,2 @@
+default: ./exampleDefaultSettings.yml
+user: ~/.exampleUserSettings_TEST.yml

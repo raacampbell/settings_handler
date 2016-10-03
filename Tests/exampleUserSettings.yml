@@ -1,0 +1,14 @@
+defaultDirectory: /path/to/stufff
+font: {name: Helvetica, size: 10.0}
+aNumber: 123.0
+someNumbersNoCommas: [98.0, 76.0, 54.0]
+someNumbersWithCommas: [11.0, 22.0, 95.0]
+aString: goodbye
+someStrings: [Help!, I, Need, Somebody, not, just, anybody]
+planetColors: {mars: red, venus: white}
+elephantMonitor:
+  trunkPosition: [10 20 30]
+  trunkSize: 32.0
+  elephantLocation: {xy: 5.0, z: 1.0}
+  maximumSize: 500.0
+  whereIsElephant: /path/to/elephant/park

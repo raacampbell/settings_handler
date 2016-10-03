@@ -6,17 +6,18 @@ classdef settingsHandlerTest < matlab.unittest.TestCase
 
 		exampleSettingsFile_missing = './exampleSettingsFile_missingUserSetting.yml';
 		userSettingsFile_missing = './exampleUserSettings_missing.yml';
-	end %properties
+		userSettingsFile_missing_unixHome = './exampleSettings_UNIX.yml';
+    end %properties
 
 	%Open test method block
 	methods (Test)
 
 		function testDefaultSettingsFileCreation(testCase)
 			%Does settings_handler correctly create a new user settings file when none previously existed?
-			if exist(testCase.userSettingsFile)
+			if exist(testCase.userSettingsFile,'file')
 				delete(testCase.userSettingsFile)
 			end
-			S = settings_handler('exampleSettingsFile.yml');
+			settings_handler(testCase.exampleSettingsFile);
  			testCase.verifyTrue(exist(testCase.userSettingsFile,'file')==2)
 
 		end % function testDefaultSettingsFileCreation
@@ -120,24 +121,55 @@ classdef settingsHandlerTest < matlab.unittest.TestCase
 
 		function testWriteSomeStrings(testCase)
 			S = settings_handler(testCase.exampleSettingsFile);
-			N = {'I','Need','Somebody'};
+			N = {'Help!','I','Need','Somebody','not','just','anybody'};
 			S.someStrings = N;
 			testCase.verifyEqual(S.someStrings,N)
-		end
-
-
-		%------------------------------------------------------------------
+        end
+        
+        
+        %------------------------------------------------------------------
 		% Check that we fill in missing settings from disk
 		function testReadMissingNumber(testCase)
 			%First confirm that the setting really not there
-			Y=yaml.ReadYaml('exampleUserSettings_missing.yml');
+			Y=yaml.ReadYaml(testCase.userSettingsFile_missing);
 			testCase.verifyTrue(isempty(strmatch('aNumber',fieldnames(Y))))
 
 			%Now check that we have read it in
-			S=settings_handler('./exampleSettingsFile_missingUserSetting.yml');
+			S=settings_handler(testCase.exampleSettingsFile_missing);
 			testCase.verifyTrue(~isempty(strmatch('aNumber',fieldnames(S))))
-		end
+        end
 
+        
+        
+        %------------------------------------------------------------------
+		% Check that we fill in missing settings from disk on a Windows
+		% machine where the user settings file is in the format
+		% ~/USERSETTINGS 
+		function testReadMissingNumber_Unix(testCase)
+			%Check that we can find the user file (it may or may not
+			%exist);
+			S=settings_handler(testCase.userSettingsFile_missing_unixHome);
+			testCase.verifyTrue(~isempty(strmatch('aNumber',fieldnames(S))))
+            
+            %DELETE the user file 
+            userFile=S.files.userFile;
+            clear('S')
+            delete(userFile)
+            
+            %Now run the code again: it will definitely have to create it
+            %now
+            S=settings_handler(testCase.userSettingsFile_missing_unixHome);
+			testCase.verifyTrue(~isempty(strmatch('aNumber',fieldnames(S))))
+            
+            %DELETE the user file (again
+            userFile=S.files.userFile;
+            clear('S')
+            delete(userFile)
+            
+        end
+
+        
+        
 
 
 		%TODO and code to *remove* settings from the user file if they are 
