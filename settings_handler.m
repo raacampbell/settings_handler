@@ -1,7 +1,6 @@
 classdef settings_handler < dynamicprops
 % settings_handler - transparent YML settings file read/writer
 %
-%
 % class settings_handler(settingsFname)
 %
 %
