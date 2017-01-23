@@ -131,7 +131,7 @@ classdef settingsHandlerTest < matlab.unittest.TestCase
 		% Check that we fill in missing settings from disk
 		function testReadMissingNumber(testCase)
 			%First confirm that the setting really not there
-			Y=yaml.ReadYaml(testCase.userSettingsFile_missing);
+			Y=settings.yaml.ReadYaml(testCase.userSettingsFile_missing);
 			testCase.verifyTrue(isempty(strmatch('aNumber',fieldnames(Y))))
 
 			%Now check that we have read it in
