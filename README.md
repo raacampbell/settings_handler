@@ -28,7 +28,7 @@ is automatically read. If this value is modified, the modified value is written 
 defaultSettings.yml  exampleSettingsFile.yml
 
 ```
-The file ```defaultSettings.yml``` contains the settings data only and the file ```exampleSettingsFile.yml``` contains the location of the default settings file and the location where we will keep the user settings. So it simply contains the following two lines:
+The file ```defaultSettings.yml``` contains the settings data only and the file `exampleSettingsFile.yml` contains the location of the default settings file and the location where we will keep the user settings. So it simply contains the following two lines:
 
 ```ini
 default: defaultSettings.yml
@@ -47,7 +47,9 @@ No user settings file found at userSettings.yml. Creating default file using def
   pathToSomething: [1x15 char]
 
 ```
+
 The instance, S, is created and reports back that that userSettings.yml file has been created. We verify this:
+
 
 ```
 >> ls
@@ -55,7 +57,8 @@ defaultSettings.yml  exampleSettingsFile.yml  userSettings.yml
 ```
 
 We can now read settings. For example, we can read from the cell array of strings and also index as normal:
-```MATLAB
+
+```
 
 >> S.ferretNames
 
@@ -77,7 +80,8 @@ wil
 ```
 
 We can read from the nested data "font":
-```MATLAB
+
+```
 >> S.font
 
 ans = 
@@ -100,7 +104,8 @@ ans =
 ```
 
 We can also *modify* values. e.g.
-```MATLAB
+
+```
 >> S.numberOfFerrets
 
 ans =
@@ -133,14 +138,11 @@ ans =
 
 ```
 
-If you look in the files, you will see that ```defaultSettings.yml``` still says "15"  whereas ```userSettings.yml``` says "99".
+If you look in the files, you will see that `defaultSettings.yml` still says "15"  whereas `userSettings.yml` says "99".
 
 # Location of the user settings YML
 
-- If you want to make a hidden settings file in the user home directory then try ```user: ~/.userSettings.yml```. settings_handler will expand the ```~``` correctly on Windows. 
+- If you want to make a hidden settings file in the user home directory then try `user: ~/.userSettings.yml`. settings_handler will expand the `~` correctly on Windows. 
 
-- If you want to make a temporary settings file then try ```user: /tmp/userSettings.yml```. May not work on Windows.
+- If you want to make a temporary settings file then try `user: /tmp/userSettings.yml`. May not work on Windows.
 
-
-# Dependencies
-(YAML MATLAB)[https://github.com/raacampbell/yamlmatlab]
