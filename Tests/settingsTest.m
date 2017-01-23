@@ -10,8 +10,8 @@ classdef settingsTest < matlab.unittest.TestCase
 
 		function testGetFontASizeValue(testCase)
 			%Test whether a particular, hard-coded, value from the example file can be returned correctly. 
-			Y=settingsYML.yaml.ReadYaml(testCase.exampleSettingsFile);
-			D=settingsYML.yaml.ReadYaml(Y.default);
+			Y=yaml.ReadYaml(testCase.exampleSettingsFile);
+			D=yaml.ReadYaml(Y.default);
 
 			F.defaultFile=Y.default;
 			F.userFile=Y.user;
@@ -28,8 +28,8 @@ classdef settingsTest < matlab.unittest.TestCase
 		function getAllValues(testCase)
 			%Test that all leaves (all stored settings) return a value
 	
-			Y=settingsYML.yaml.ReadYaml(testCase.exampleSettingsFile);
-			D=settingsYML.yaml.ReadYaml(Y.default);
+			Y=yaml.ReadYaml(testCase.exampleSettingsFile);
+			D=yaml.ReadYaml(Y.default);
 
 			F.defaultFile=Y.default;
 			F.userFile=Y.user;

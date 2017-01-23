@@ -20,7 +20,7 @@ classdef setting
 
 		function value=getValue(obj)
 			%read the user settings
-			userSettings = settingsYML.yaml.ReadYaml(obj.files.userFile);
+			userSettings=yaml.ReadYaml(obj.files.userFile);
 
 			value=getStructData(userSettings,obj.pathToVariable);
 			if strcmp(value,obj.failureString);

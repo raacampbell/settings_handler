@@ -57,13 +57,13 @@ classdef settings_handler < dynamicprops
 			end
 
 			%read the yml file
-			Y=settingsYML.yaml.ReadYaml(settingsFname);
+			Y=yaml.ReadYaml(settingsFname);
 
 			if ~exist(Y.default,'file')
 				error('Can not find settings file %s\n', Y.default)
 			end
 			obj.files.defaultFile = Y.default;
-			obj.defaultSettings = settingsYML.yaml.ReadYaml(obj.files.defaultFile);
+			obj.defaultSettings = yaml.ReadYaml(obj.files.defaultFile);
 
 			obj.files.userFile = Y.user;
 			if ispc && strcmp(obj.files.userFile(1),'~')
@@ -74,7 +74,7 @@ classdef settings_handler < dynamicprops
 			if ~exist(obj.files.userFile)
 				%If the user settings file does not exist, we just copy the default settings to the desired location
 				fprintf('No user settings file found at %s. Creating default file using %s\n', obj.files.userFile, obj.files.defaultFile)
-				settingsYML.yaml.WriteYaml(obj.files.userFile, obj.defaultSettings);
+				yaml.WriteYaml(obj.files.userFile, obj.defaultSettings);
 			end
 
 			%Create the structure of objects that will store the data.
@@ -129,11 +129,11 @@ classdef settings_handler < dynamicprops
 		 		return
 		 	end
 
-		 	userSettings = settingsYML.yaml.ReadYaml(obj.files.userFile);
+		 	userSettings = yaml.ReadYaml(obj.files.userFile);
 
 		 	userSettings = subsasgn(userSettings,S,newValue);
 
-		 	settingsYML.yaml.WriteYaml(obj.files.userFile,userSettings);
+		 	yaml.WriteYaml(obj.files.userFile,userSettings);
 
 		 	out=obj;
 
@@ -170,7 +170,7 @@ classdef settings_handler < dynamicprops
 
 			if nargin<3
 				f=fields(importedYML);
-				T = settingsTree.tree ;
+				T = tree ;
 				currentBranchNode = 1;
 			end
 

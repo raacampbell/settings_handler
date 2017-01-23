@@ -1,6 +1,0 @@
-[submodule "+settingsTree"]
-	path = +settingsTree
-	url = https://github.com/raacampbell/matlab-tree.git
-[submodule "+settingsYML"]
-	path = +settingsYML
-	url = https://github.com/raacampbell/yamlmatlab.git
